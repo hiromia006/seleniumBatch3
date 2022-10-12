@@ -6,6 +6,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
@@ -14,12 +16,12 @@ public class JavaScriptAlerts {
         WebDriverManager.firefoxdriver().setup();
         WebDriver driver = new FirefoxDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         driver.get("https://demoqa.com/alerts");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
         // Alert
         driver.findElement(By.id("alertButton")).click();
-        Thread.sleep(2000);
+        wait.until(ExpectedConditions.alertIsPresent());
         driver.switchTo().alert().accept();
         Thread.sleep(3000);
 

@@ -5,6 +5,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class SelectorOrLocator {
     public static void main(String[] args) throws InterruptedException {
@@ -13,7 +18,15 @@ public class SelectorOrLocator {
         driver.manage().window().maximize();
 
         driver.get("https://parabank.parasoft.com/parabank/register.htm");
+        //Implicit wait
+//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+
+        //Explicit wait
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+
         WebElement webElement = driver.findElement(By.id("customer.firstName"));
+        wait.until(ExpectedConditions.elementToBeClickable(webElement));
+
         webElement.clear();
         webElement.sendKeys("Ali");
         Thread.sleep(3000);
